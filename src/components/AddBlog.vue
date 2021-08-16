@@ -10,14 +10,12 @@
       <textarea v-model="blog.content"></textarea>
 
       <div id="checkboxes">
-        <label>Vue.js</label>
-        <input type="checkbox" value="Vue.js" v-model="blog.categories" />
-        <label>Node.js</label>
-        <input type="checkbox" value="Node.js" v-model="blog.categories" />
-        <label>React.js</label>
-        <input type="checkbox" value="React.js" v-model="blog.categories" />
-        <label>Angular4</label>
-        <input type="checkbox" value="Angular4" v-model="blog.categories" />
+        <div style="display: flex">
+          <div v-for="item in sechema" :key="item">
+            <input type="checkbox" :value="item" v-model="blog.categories" />
+            <label>{{ item }}</label>
+          </div>
+        </div>
         <br />
         <label>作者:</label>
         <select v-model="blog.author">
@@ -60,17 +58,18 @@ export default {
         categories: [],
         author: [],
       },
+      sechema: ["Vue.js", "Node.js", "React.js", "Angular4"],
       authors: ["pc", "justin", "charlie"],
       submmited: false,
     };
   },
   methods: {
-    post: function () {
-      this.$http.post("https://vuedemo-654bf-default-rtdb.firebaseio.com/posts.json", this.blog)
-        .then(function (data) {
-          console.log(data);
-          this.submmited = true;
-        });
+    async post() {
+      const res = await this.$http.post(
+        "https://vuedemo-654bf-default-rtdb.firebaseio.com/posts.json",
+        this.blog
+      );
+      this.submmited = true;
     },
   },
 };
@@ -102,7 +101,7 @@ select {
 }
 
 textarea {
-    height: 200px;
+  height: 200px;
 }
 
 #checkboxes label {
@@ -128,17 +127,12 @@ button {
 }
 
 #preview {
-    padding: 10px 20px;
-    border: 1px dotted #ccc;
-    margin: 30px 0;
+  padding: 10px 20px;
+  border: 1px dotted #ccc;
+  margin: 30px 0;
 }
 
 h3 {
-    margin-top: 10px;
+  margin-top: 10px;
 }
-
-
-
-
-
 </style>

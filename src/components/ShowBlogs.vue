@@ -28,8 +28,7 @@ export default {
     this.$http.get("https://vuedemo-654bf-default-rtdb.firebaseio.com/posts.json")
     .then(function (data) {
       return data.json()
-
-      // console.log(data);
+     
       // this.blogs = data.body.slice(0, 10);
       // console.log(this.blogs);
     })

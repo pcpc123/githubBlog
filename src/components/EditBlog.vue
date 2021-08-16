@@ -63,25 +63,34 @@ export default {
     };
   },
   methods: {
-      fetchData() {
-        // console.log(this.id);
-        this.$http.get("https://vuedemo-654bf-default-rtdb.firebaseio.com/posts/" + this.id + ".json")
-        .then(response => {
-            // console.log(response.body);
-            this.blog = response.body;
-        })
-      },
-    post: function () {
-      this.$http.put("https://vuedemo-654bf-default-rtdb.firebaseio.com/posts/" + this.id + ".json", this.blog)
-        .then(function (data) {
-          console.log(data);
-          this.submmited = true;
-        });
+    async fetchData() {
+      // console.log(this.id);
+      /*     this.$http
+        .get(
+          "https://vuedemo-654bf-default-rtdb.firebaseio.com/posts/" +
+            this.id +
+            ".json"
+        )
+        .then((response) => {
+          // console.log(response.body);
+          this.blog = response.body;
+        }); */
+      const res = await this.$http.get(
+        `https://vuedemo-654bf-default-rtdb.firebaseio.com/posts/${this.id}.json`
+      );
+      this.blog = res.body;
+    },
+    async post() {
+      await this.$http.put(
+        `https://vuedemo-654bf-default-rtdb.firebaseio.com/posts/${this.id}.json`,
+        this.blog
+      );
+      this.submmited = true;
     },
   },
   created() {
-      this.fetchData();
-  }
+    this.fetchData();
+  },
 };
 </script>
 
@@ -111,7 +120,7 @@ select {
 }
 
 textarea {
-    height: 200px;
+  height: 200px;
 }
 
 #checkboxes label {
@@ -137,17 +146,12 @@ button {
 }
 
 #preview {
-    padding: 10px 20px;
-    border: 1px dotted #ccc;
-    margin: 30px 0;
+  padding: 10px 20px;
+  border: 1px dotted #ccc;
+  margin: 30px 0;
 }
 
 h3 {
-    margin-top: 10px;
+  margin-top: 10px;
 }
-
-
-
-
-
 </style>

@@ -9,7 +9,7 @@
         {{ category }}
       </li>
     </ul>
-    <button @click="deleteSingleBlog()">删除</button>
+    <button @click="deleteSingleBlog">删除</button>
     <router-link :to="'/edit/' + id" id="edit">编辑</router-link>
   </div>
 </template>
